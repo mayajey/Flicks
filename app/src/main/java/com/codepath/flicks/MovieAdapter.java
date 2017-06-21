@@ -14,6 +14,8 @@ import com.codepath.flicks.Models.Movie;
 
 import java.util.ArrayList;
 
+import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
+
 /**
  * Created by mayajey on 6/21/17.
  */
@@ -66,6 +68,9 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder>{
         // load image using Glide
         Glide.with(context)
                 .load(imageUrl)
+                .bitmapTransform(new RoundedCornersTransformation(context, 15, 0))
+                .placeholder(R.drawable.flicks_movie_placeholder)
+                .error(R.drawable.flicks_movie_placeholder)
                 .into(holder.ivPosterImage);
 
     }
