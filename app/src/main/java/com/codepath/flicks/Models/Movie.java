@@ -86,7 +86,17 @@ public class Movie {
                 try {
                     // load the movie's youtube id and make the url
                     JSONArray results = response.getJSONArray("results");
-                    // extract first one if existing
+                    String key = null;
+                    // get the first one whose site is youtube
+                    for (int i = 0; i < results.length(); i++) {
+                        JSONObject currentVideo = results.getJSONObject(i);
+                        // check if it's youtube
+                        String actualSite = currentVideo.getString("site");
+                        if (actualSite.equals("Youtube")) {
+                            key = currentVideo.getString("key");
+                            break;
+                        }
+                    }
                 } catch (JSONException e1) {
                     e1.printStackTrace();
                 }
