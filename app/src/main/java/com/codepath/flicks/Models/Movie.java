@@ -2,12 +2,13 @@ package com.codepath.flicks.Models;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.parceler.Parcel;
 
 /**
  * Created by mayajey on 6/21/17.
  */
 
-// annotation indicates class is Parcelable
+@Parcel // annotation indicates class is Parcelable
 public class Movie {
     // instance variables that track values from API
     String title;
@@ -16,6 +17,9 @@ public class Movie {
     String posterPath;
     // backdrop partial path
     String backdropPath;
+
+    // no-arg, empty constructor required for Parceler
+    public Movie() {}
 
     // Constructor; init from JSON data
     public Movie (JSONObject object) throws JSONException {

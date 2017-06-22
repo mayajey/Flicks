@@ -1,6 +1,7 @@
 package com.codepath.flicks;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -13,6 +14,8 @@ import com.bumptech.glide.Glide;
 import com.codepath.flicks.Models.Config;
 import com.codepath.flicks.Models.Movie;
 
+import org.parceler.Parcels;
+
 import java.util.ArrayList;
 
 import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
@@ -21,7 +24,7 @@ import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
  * Created by mayajey on 6/21/17.
  */
 
-public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder>{
+public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> {
 
     // list of movies
     ArrayList<Movie> movies;
@@ -95,8 +98,8 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder>{
         return movies.size();
     }
 
-    // create viewholder as a nested static class
-    public static class ViewHolder extends RecyclerView.ViewHolder {
+    // create viewholder as a nested class -- cannot be static for parceling
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         // instance variables -- track view objects
         ImageView ivPosterImage;
@@ -111,7 +114,24 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder>{
             tvTitle = (TextView) itemView.findViewById(R.id.tvTitle);
             tvOverview = (TextView) itemView.findViewById(R.id.tvOverview);
             ivBackdropImage = (ImageView) itemView.findViewById(R.id.ivBackdropImage);
+            // when we click on the image, it gives more information (see below)
+            itemView.setOnClickListener(this);
+        }
 
+        @Override
+        public void onClick(View v) {
+            // Get position of movie being clicked, ensure it's valid
+            int position = getAdapterPosition();
+            if (position != RecyclerView.NO_POSITION) {
+                // Get the movie at that position
+                Movie movie = movies.get(position);
+                // Communicate btwn activities -- adapter & showing details
+                Intent intent = new Intent(context, MovieDetailsActivity.class);
+                // use parceler to wrap movie
+                intent.putExtra(Movie.class.getSimpleName(), Parcels.wrap(movie));
+                // show the activity
+                context.startActivity(intent);
+            }
         }
     }
 }
