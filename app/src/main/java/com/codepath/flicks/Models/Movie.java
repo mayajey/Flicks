@@ -7,21 +7,25 @@ import org.json.JSONObject;
  * Created by mayajey on 6/21/17.
  */
 
+// annotation indicates class is Parcelable
 public class Movie {
     // instance variables that track values from API
-    private String title;
-    private String overview;
+    String title;
+    String overview;
     // not full URL; just ending path to image
-    private String posterPath;
+    String posterPath;
+    // backdrop partial path
+    String backdropPath;
 
     // Constructor; init from JSON data
     public Movie (JSONObject object) throws JSONException {
         title = object.getString("title");
         overview = object.getString("overview");
         posterPath = object.getString("poster_path");
+        backdropPath = object.getString("backdrop_path");
     }
 
-    // Getters b/c private instance variables
+    // Getters
     public String getTitle() {
         return title;
     }
@@ -32,5 +36,9 @@ public class Movie {
 
     public String getPosterPath() {
         return posterPath;
+    }
+
+    public String getBackdropPath() {
+        return backdropPath;
     }
 }

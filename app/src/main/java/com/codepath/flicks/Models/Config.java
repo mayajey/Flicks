@@ -14,6 +14,8 @@ public class Config {
     String imageBaseUrl;
     // Poster size
     String posterSize;
+    // Backdrop size to use when fetching image (landscape vs portrait)
+    String backdropSize;
 
     public Config(JSONObject object) throws JSONException {
         // new JSONObject images -- next level of parsing
@@ -24,6 +26,9 @@ public class Config {
         JSONArray posterSizeOptions = images.getJSONArray("poster_sizes");
         // prevents hardcoding but allows default value
         posterSize = posterSizeOptions.optString(3, "w342");
+        // appropriate backdrop size (index 1 or w780)
+        JSONArray backdropSizeOptions = images.getJSONArray("backdrop_sizes");
+        backdropSize = backdropSizeOptions.optString(1, "w780");
     }
 
     // construct image URL -- keep it generic in event of additional size
@@ -37,5 +42,9 @@ public class Config {
 
     public String getPosterSize() {
         return posterSize;
+    }
+
+    public String getBackdropSize() {
+        return backdropSize;
     }
 }
