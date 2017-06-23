@@ -3,11 +3,13 @@ package com.codepath.flicks.Models;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.parceler.Parcel;
 
 /**
  * Created by mayajey on 6/21/17.
  */
 
+@Parcel // annotation indicates class is Parcelable
 public class Config {
 
     // Secure base url for loading images
@@ -16,6 +18,8 @@ public class Config {
     String posterSize;
     // Backdrop size to use when fetching image (landscape vs portrait)
     String backdropSize;
+
+    public Config() {}
 
     public Config(JSONObject object) throws JSONException {
         // new JSONObject images -- next level of parsing

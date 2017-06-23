@@ -129,6 +129,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
                 Intent intent = new Intent(context, MovieDetailsActivity.class);
                 // use parceler to wrap movie
                 intent.putExtra(Movie.class.getSimpleName(), Parcels.wrap(movie));
+                intent.putExtra(Config.class.getSimpleName(), Parcels.wrap(config));
                 // show the activity
                 context.startActivity(intent);
             }
